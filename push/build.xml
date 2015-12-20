@@ -12,14 +12,12 @@
     <property name="module.symbolic" value="com.vaadin.push" />
     <property name="result.dir" location="result" />
     <property name="temp.dir" location="${result.dir}/temp" />
-    <property name="jquery.unpack" location="${temp.dir}/jquery" />
     <property name="vaadinPush.js" location="${result.dir}/js/VAADIN/vaadinPush.js" />
     <property name="vaadinPush.debug.js"
         location="${result.dir}/js/VAADIN/vaadinPush.debug.js" />
 
     <!-- Keep the version number in sync with ivy.xml, server/src/com/vaadin/server/Constants.java -->
     <property name="atmosphere.runtime.version" value="2.2.7.vaadin1" />
-    <property name="jquery.js" location="lib/jquery/jquery-1.11.0.js" />
 
     <path id="classpath.compile.custom" />
 
@@ -36,32 +34,30 @@
         <mkdir dir="${result.dir}/js/VAADIN" />
         <ivy:resolve log="download-only" file="ivy.xml"
             conf="push.js" />
-        <ivy:cachepath pathid="atmosphere.jquery.deps"
+        <ivy:cachepath pathid="atmosphere.js.war"
             conf="push.js" />
 
         <delete dir="${temp.dir}" />
-        <copy flatten="true" tofile="${temp.dir}/jquery.war">
-            <path refid="atmosphere.jquery.deps" />
+        <copy flatten="true" tofile="${temp.dir}/js.war">
+            <path refid="atmosphere.js.war" />
         </copy>
 
         <!-- Unzip to temp dir -->
-        <unzip src="${temp.dir}/jquery.war" dest="${jquery.unpack}">
+        <unzip src="${temp.dir}/js.war" dest="${temp.dir}/atmospherejs">
             <patternset>
-                <include name="**/jquery.atmosphere.js" />
+                <include name="**/atmosphere.js" />
             </patternset>
             <mapper type="flatten" />
         </unzip>
-        <loadfile srcfile="${jquery.js}" property="jquery.js.contents" />
-        <loadfile srcfile="${jquery.unpack}/jquery.atmosphere.js"
-            property="jquery.atmosphere.js.contents" />
+        <loadfile srcfile="${temp.dir}/atmospherejs/atmosphere.js"
+            property="atmosphere.js.contents" />
 
         <loadfile
             srcfile="${vaadin.basedir}/WebContent/VAADIN/vaadinPush.js.tpl"
             property="vaadinPush.js.contents">
             <filterchain>
                 <replacetokens begintoken="@" endtoken="@">
-                    <token key="jquery.js" value="${jquery.js.contents}" />
-                    <token key="jquery.atmosphere.js" value="${jquery.atmosphere.js.contents}" />
+                    <token key="atmosphere.js" value="${atmosphere.js.contents}" />
                 </replacetokens>
             </filterchain>
         </loadfile>

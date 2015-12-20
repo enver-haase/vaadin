@@ -38,7 +38,7 @@
             name="atmosphere-runtime" rev="&atmosphere.runtime.version;"
             conf="build,ide,test -> default" />
         <dependency org="com.vaadin.external.atmosphere.client"
-            name="jquery" rev="&atmosphere.js.version;" conf="push.js -> default" />
+            name="javascript" rev="&atmosphere.js.version;" conf="push.js -> default" />
     </dependencies>
 
 </ivy-module>
