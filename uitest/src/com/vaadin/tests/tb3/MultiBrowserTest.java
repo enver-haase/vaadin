@@ -53,13 +53,12 @@ public abstract class MultiBrowserTest extends PrivateTB3Configuration {
     }
 
     protected List<DesiredCapabilities> getBrowsersExcludingIE() {
-        return getBrowserCapabilities(Browser.FIREFOX, Browser.CHROME,
-                Browser.PHANTOMJS);
+        return getBrowserCapabilities(Browser.FIREFOX, Browser.CHROME);
     }
 
     protected List<DesiredCapabilities> getBrowsersExcludingIE8() {
         return getBrowserCapabilities(Browser.IE9, Browser.IE10, Browser.IE11,
-                Browser.FIREFOX, Browser.CHROME, Browser.PHANTOMJS);
+                Browser.FIREFOX, Browser.CHROME);
     }
 
     protected List<DesiredCapabilities> getBrowsersSupportingShiftClick() {
@@ -83,8 +82,8 @@ public abstract class MultiBrowserTest extends PrivateTB3Configuration {
     public List<DesiredCapabilities> getBrowsersToTest() {
         // Uncomment Safari and Opera if those become tested browsers again.
         return getBrowserCapabilities(Browser.IE8, Browser.IE9, Browser.IE10,
-                Browser.IE11, Browser.FIREFOX, Browser.CHROME,
-                Browser.PHANTOMJS /* , Browser.SAFARI, Browser.OPERA */);
+                Browser.IE11, Browser.FIREFOX, Browser.CHROME
+        /* , Browser.PHANTOMJS, Browser.SAFARI, Browser.OPERA */);
     }
 
     protected List<DesiredCapabilities> getBrowserCapabilities(
