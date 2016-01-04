@@ -21,11 +21,33 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import com.vaadin.testbench.parallel.Browser;
 import com.vaadin.testbench.parallel.DefaultBrowserFactory;
+import com.vaadin.testbench.parallel.TestBenchBrowserFactory;
 
 public class VaadinBrowserFactory extends DefaultBrowserFactory {
 
+    TestBenchBrowserFactory delegate = null;
+
     @Override
     public DesiredCapabilities create(Browser browser) {
+        if (System.getProperty("browser.factory") != null) {
+            if (delegate == null) {
+                String className = System.getProperty("browser.factory");
+                try {
+                    delegate = (TestBenchBrowserFactory) getClass()
+                            .getClassLoader().loadClass(className)
+                            .newInstance();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new RuntimeException(e);
+                }
+            }
+            return delegate.create(browser);
+        }
+
+        return doCreate(browser);
+    }
+
+    protected DesiredCapabilities doCreate(Browser browser) {
         switch (browser) {
         case IE8:
             return createIE(browser, "8");
@@ -45,7 +67,7 @@ public class VaadinBrowserFactory extends DefaultBrowserFactory {
         }
     }
 
-    private DesiredCapabilities createIE(Browser browser, String version) {
+    protected DesiredCapabilities createIE(Browser browser, String version) {
         DesiredCapabilities capabilities = create(browser, version,
                 Platform.WINDOWS);
         capabilities.setCapability(
