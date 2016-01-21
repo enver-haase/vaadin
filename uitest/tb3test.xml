@@ -5,6 +5,7 @@
     <property name="report.dir" location="${tb3test.dir}/result/reports-tb3" />
     <property name="browsers.include" value="" />
     <property name="browsers.exclude" value="" />
+    <property name="browser.factory" value="" />
     <property name="categories.include" value="" />
     <property name="categories.exclude" value="" />
     <property name="useLocalWebDriver" value="false" />
@@ -40,6 +41,7 @@
             <jvmarg value="-Dbrowsers.exclude=${browsers.exclude}" />
             <jvmarg value="-Dcategories.include=${categories.include}" />
             <jvmarg value="-Dcategories.exclude=${categories.exclude}" />
+            <jvmarg value="-Dbrowser.factory=${browser.factory}" />
             <jvmarg value="-DuseLocalWebDriver=${useLocalWebDriver}" />
             <jvmarg value="-Dcom.vaadin.testbench.max.retries=${com.vaadin.testbench.max.retries}" />
             <jvmarg value="-Dcom.vaadin.testbench.hub.url=${com.vaadin.testbench.hub.url}" />

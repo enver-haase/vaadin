@@ -32,7 +32,8 @@ public class VaadinBrowserFactory extends DefaultBrowserFactory {
     @Override
     public DesiredCapabilities create(Browser browser) {
         String browserFactoryClass = System.getProperty("browser.factory");
-        if (browserFactoryClass != null) {
+        if (browserFactoryClass != null
+                && !browserFactoryClass.trim().isEmpty()) {
             if (delegate == null) {
                 getLogger()
                         .info("Using browser factory " + browserFactoryClass);
