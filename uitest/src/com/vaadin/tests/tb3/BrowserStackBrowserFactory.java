@@ -15,6 +15,8 @@
  */
 package com.vaadin.tests.tb3;
 
+import java.util.logging.Logger;
+
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -115,7 +117,12 @@ public class BrowserStackBrowserFactory extends DefaultBrowserFactory {
 
         caps.setCapability("resolution", "1680x1050");
 
+        getLogger().info("Using BrowserStack capabilities " + caps);
+
         return caps;
     }
 
+    private static final Logger getLogger() {
+        return Logger.getLogger(BrowserStackBrowserFactory.class.getName());
+    }
 }

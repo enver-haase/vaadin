@@ -15,6 +15,8 @@
  */
 package com.vaadin.tests.tb3;
 
+import java.util.logging.Logger;
+
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -29,12 +31,14 @@ public class VaadinBrowserFactory extends DefaultBrowserFactory {
 
     @Override
     public DesiredCapabilities create(Browser browser) {
-        if (System.getProperty("browser.factory") != null) {
+        String browserFactoryClass = System.getProperty("browser.factory");
+        if (browserFactoryClass != null) {
             if (delegate == null) {
-                String className = System.getProperty("browser.factory");
+                getLogger()
+                        .info("Using browser factory " + browserFactoryClass);
                 try {
                     delegate = (TestBenchBrowserFactory) getClass()
-                            .getClassLoader().loadClass(className)
+                            .getClassLoader().loadClass(browserFactoryClass)
                             .newInstance();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -81,4 +85,9 @@ public class VaadinBrowserFactory extends DefaultBrowserFactory {
         capabilities.setVersion(version);
         return capabilities;
     }
+
+    private static final Logger getLogger() {
+        return Logger.getLogger(VaadinBrowserFactory.class.getName());
+    }
+
 }
